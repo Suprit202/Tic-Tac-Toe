@@ -83,10 +83,25 @@
       font-family: 'roboto', sans-serif;
     }
 
-    .img-box{
-      display: none;
+    .img-box img{
+      width: 0;
+      transition:  width 1s ease-in-out;
     }
 
+    .btn-reset{
+      border: none;
+      border-radius: 8px;
+      background-color: purple;
+      color: white;
+      font-size: 15px;
+      font-family: 'roboto',sans-serif;
+      padding: 10px 20px;
+      margin-left: 10px;
+    }
+
+    .btn-reset:active{
+      background-color: rgb(233, 159, 233);
+    }
 
   </style>
 </head>
@@ -111,13 +126,79 @@
     <div class="game-info">
       <h1>Welcome To Tic-Tac-Toe Game</h1>
       <div>
-        <span>Turn Of X</span>
-        <button id="btm-reset">Reset</button>
+        <span class="info">Turn Of X</span>
+        <button class="btn-reset">Reset</button>
       </div>
       <div class="img-box">
         <img src="./public/image/excited.gif">
       </div>
     </div>
   </div>
+
+  <script>
+    let turn = "X";
+    let gameOver = false;
+    const gameOverMusic = new Audio("./public/audio/gameover.mp3")
+    const gameMusic = new Audio("./public/audio/music.mp3")
+    const gamePk = new Audio("./public/audio/ting.mp3")
+
+    //Switch The Turn
+    let switchTurn = ()=>{
+      return turn === "X"? "0":"X";
+    }
+
+    //Check The Winner
+    let checkWin = ()=>{
+      let slotText = document.getElementsByClassName('slot-text');
+      
+      let win = [
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+        [0,4,8],
+        [2,4,6]
+      ]
+
+      win.forEach(e =>{
+         if((slotText[e[0]].innerText === slotText[e[1]].innerText) && (slotText[e[1]].innerText === slotText[e[2]].innerText)&&(slotText[e[0]].innerText !=='')){
+          gameMusic.play();
+          document.querySelector(".info").innerText = slot[e[0]].innerText + " is the winner !!!";
+          gameOver = true;
+          document.querySelector(".img-box").getElementsByTagName("img")[0].style.width = "300px";
+         }
+      })
+    }
+
+    //Game Logic
+    let slot = document.getElementsByClassName("slot");
+    Array.from(slot).map((e)=>{
+      let slotText = e.querySelector('.slot-text');
+      e.addEventListener("click",()=>{
+        if(slotText.innerHTML === ''){
+          slotText.innerHTML = turn;
+          turn = switchTurn();
+          gamePk.play();
+          checkWin();
+          if(!gameOver){
+            document.querySelector(".info").innerHTML = "Turn of " + turn;
+          }
+        }
+      })
+    })
+
+    //Reset Button
+    document.querySelector(".btn-reset").addEventListener("click",()=>{
+      let slotText = document.getElementsByClassName('slot-text');
+      Array.from(slotText).map(e =>{
+        e.innerHTML = "";
+      })
+      gameMusic.pause();
+      document.querySelector(".img-box").getElementsByTagName("img")[0].style.width = "0px";
+      turn = "X";
+    })
+  </script>
 </body>
 </html>
