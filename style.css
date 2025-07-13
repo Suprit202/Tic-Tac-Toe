@@ -1,0 +1,128 @@
+
+    @import url('https://fonts.googleapis.com/css2?family=Barrio&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+    *{
+      margin: 0;
+      padding: 0;
+    }
+
+    nav{
+      background-color: rgb(78, 2, 78);
+      color: white;
+      padding: 20px;
+      font-size: 20px;
+      font-family: "Roboto", sans-serif;
+      font-weight: bold;
+    }
+
+    ul{
+      list-style: none;
+    }
+
+    .container{
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      margin-top: 15vh;
+    }
+    
+    .game-container{
+      display: grid;
+      grid-template-columns: repeat(3,10vw);
+      grid-template-rows: repeat(3,10vw);
+      position: relative;
+      margin: 0px 20px;
+    }
+
+    .game-info{
+      font-family: 'roboto',sans-serif;
+      padding: 0px 40px;
+    }
+
+    .game-info h1{
+      font-family: "Barrio", system-ui;
+      font-size: 50px;
+    }
+
+    .slot{
+      display: flex;
+      font-size: 8vw;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid black;
+    }
+
+    .slot:hover{
+      background-color: rgb(187, 155, 217);
+    }
+
+    .slot:active{
+      background-color: rgb(158, 252, 158);
+    }
+
+    .br-0{
+      border-top: none;
+    }
+
+    .br-1{
+      border-right: none;
+    }
+    
+    .br-2{
+      border-bottom: none;
+    }
+
+    .br-3{
+      border-left: none;
+    }
+    
+    .slot-text{
+      display: inline-block;
+      font-family: 'roboto',sans-serif;
+    }
+
+    h1{
+      font-family: 'roboto', sans-serif;
+    }
+
+    .img-box img{
+      width: 0;
+      transition:  width 1s ease-in-out;
+    }
+
+    .btn-reset{
+      border: none;
+      border-radius: 8px;
+      background-color: purple;
+      color: white;
+      font-size: 15px;
+      font-family: 'roboto',sans-serif;
+      padding: 10px 20px;
+      margin-left: 10px;
+    }
+
+    .btn-reset:active{
+      background-color: rgb(233, 159, 233);
+    }
+
+    .line{
+      position: absolute;
+      height: 8px;
+      width: 0;
+      background-color: rgb(233, 121, 121);
+      transition: width 0.5s linear;
+    }
+
+    @media screen and (max-width: 600px) {
+      .container{
+        flex-wrap: wrap;
+      }
+
+      .game-info{
+        padding-top: 30px;
+      }
+      .game-info h1{
+        font-size: 20px;
+      }
+
+    }

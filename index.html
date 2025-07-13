@@ -4,106 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tic-Tac-Toe</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-
-    *{
-      margin: 0;
-      padding: 0;
-    }
-
-    nav{
-      background-color: black;
-      color: white;
-      padding: 20px;
-      font-size: 20px;
-      font-family: "Roboto", sans-serif;
-      font-weight: bold;
-    }
-
-    ul{
-      list-style: none;
-    }
-
-    .container{
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      margin-top: 15vh;
-    }
-    
-    .game-container{
-      display: grid;
-      grid-template-columns: repeat(3,10vw);
-      grid-template-rows: repeat(3,10vw);
-    }
-
-    .game-info{
-      padding-left: 20px;
-    }
-
-    .slot{
-      display: flex;
-      font-size: 8vw;
-      justify-content: center;
-      align-items: center;
-      border: 2px solid black;
-    }
-
-    .slot:hover{
-      background-color: rgb(187, 155, 217);
-    }
-
-    .slot:active{
-      background-color: rgb(158, 252, 158);
-    }
-
-    .br-0{
-      border-top: none;
-    }
-
-    .br-1{
-      border-right: none;
-    }
-    
-    .br-2{
-      border-bottom: none;
-    }
-
-    .br-3{
-      border-left: none;
-    }
-    
-    .slot-text{
-      display: inline-block;
-      font-family: 'roboto',sans-serif;
-    }
-
-    h1{
-      font-family: 'roboto', sans-serif;
-    }
-
-    .img-box img{
-      width: 0;
-      transition:  width 1s ease-in-out;
-    }
-
-    .btn-reset{
-      border: none;
-      border-radius: 8px;
-      background-color: purple;
-      color: white;
-      font-size: 15px;
-      font-family: 'roboto',sans-serif;
-      padding: 10px 20px;
-      margin-left: 10px;
-    }
-
-    .btn-reset:active{
-      background-color: rgb(233, 159, 233);
-    }
-
-  </style>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
   <nav>
@@ -113,6 +14,7 @@
   </nav>
   <div class="container">
     <div class="game-container">
+      <div class="line"></div>
       <div class="slot br-0 br-3"><span class="slot-text"></span></div>
       <div class="slot br-0"><span class="slot-text"></span></div>
       <div class="slot br-1 br-0"><span class="slot-text"></span></div>
@@ -134,71 +36,6 @@
       </div>
     </div>
   </div>
-
-  <script>
-    let turn = "X";
-    let gameOver = false;
-    const gameOverMusic = new Audio("./public/audio/gameover.mp3")
-    const gameMusic = new Audio("./public/audio/music.mp3")
-    const gamePk = new Audio("./public/audio/ting.mp3")
-
-    //Switch The Turn
-    let switchTurn = ()=>{
-      return turn === "X"? "0":"X";
-    }
-
-    //Check The Winner
-    let checkWin = ()=>{
-      let slotText = document.getElementsByClassName('slot-text');
-      
-      let win = [
-        [0,1,2],
-        [3,4,5],
-        [6,7,8],
-        [0,3,6],
-        [1,4,7],
-        [2,5,8],
-        [0,4,8],
-        [2,4,6]
-      ]
-
-      win.forEach(e =>{
-         if((slotText[e[0]].innerText === slotText[e[1]].innerText) && (slotText[e[1]].innerText === slotText[e[2]].innerText)&&(slotText[e[0]].innerText !=='')){
-          gameMusic.play();
-          document.querySelector(".info").innerText = slot[e[0]].innerText + " is the winner !!!";
-          gameOver = true;
-          document.querySelector(".img-box").getElementsByTagName("img")[0].style.width = "300px";
-         }
-      })
-    }
-
-    //Game Logic
-    let slot = document.getElementsByClassName("slot");
-    Array.from(slot).map((e)=>{
-      let slotText = e.querySelector('.slot-text');
-      e.addEventListener("click",()=>{
-        if(slotText.innerHTML === ''){
-          slotText.innerHTML = turn;
-          turn = switchTurn();
-          gamePk.play();
-          checkWin();
-          if(!gameOver){
-            document.querySelector(".info").innerHTML = "Turn of " + turn;
-          }
-        }
-      })
-    })
-
-    //Reset Button
-    document.querySelector(".btn-reset").addEventListener("click",()=>{
-      let slotText = document.getElementsByClassName('slot-text');
-      Array.from(slotText).map(e =>{
-        e.innerHTML = "";
-      })
-      gameMusic.pause();
-      document.querySelector(".img-box").getElementsByTagName("img")[0].style.width = "0px";
-      turn = "X";
-    })
-  </script>
+  <script src="./script.js"></script>
 </body>
 </html>
